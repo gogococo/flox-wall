@@ -1,0 +1,6 @@
+{
+  "type": "module",
+  "bin": {
+    "sign": "./scripts/sign.js"
+  }
+}

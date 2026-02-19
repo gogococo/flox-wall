@@ -1,0 +1,188 @@
+body {
+  margin: 0;
+  font-family: 'Courier New', monospace;
+  background: #0d0f12;
+  color: #e6edf3;
+  overflow: hidden;
+}
+
+/* ⭐ Animated Stars */
+.stars {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  box-shadow:
+    100px 200px white,
+    300px 400px white,
+    500px 100px white,
+    800px 300px white,
+    1200px 600px white,
+    600px 900px white;
+  opacity: 0.5;
+  animation: twinkle 4s infinite alternate;
+  z-index: -1;
+}
+
+@keyframes twinkle {
+  from { opacity: 0.3; }
+  to { opacity: 0.7; }
+}
+
+/* Shooting Star */
+#shooting-star {
+  position: fixed;
+  width: 2px;
+  height: 2px;
+  background: white;
+  box-shadow: 0 0 8px white;
+  opacity: 0;
+  z-index: -1;
+}
+
+.shoot {
+  animation: shoot 1s ease-out forwards;
+}
+
+@keyframes shoot {
+  0% {
+    opacity: 1;
+    transform: translate(-200px, -200px);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(100vw, 100vh);
+  }
+}
+
+/* Planets */
+.planet {
+  position: fixed;
+  border-radius: 50%;
+  background: transparent;
+  z-index: 0;
+}
+
+.planet-1 {
+  width: 240px;
+  height: 240px;
+  border: 2px solid rgba(130, 180, 255, 0.3);
+  bottom: -80px;
+  right: 4%;
+}
+
+.planet-1::before {
+  content: '';
+  position: absolute;
+  width: 160%;
+  height: 32%;
+  border: 1.5px solid rgba(130, 180, 255, 0.18);
+  border-radius: 50%;
+  top: 50%;
+  left: -30%;
+  transform: translateY(-50%) rotate(-18deg);
+}
+
+.planet-2 {
+  width: 140px;
+  height: 140px;
+  border: 1.5px solid rgba(200, 160, 255, 0.25);
+  top: 8%;
+  left: -35px;
+}
+
+.planet-3 {
+  width: 70px;
+  height: 70px;
+  border: 1px solid rgba(255, 210, 140, 0.3);
+  top: 38%;
+  right: 11%;
+}
+
+/* Terminal Window */
+.terminal {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  background: rgba(13, 15, 18, 0.55);
+  box-shadow: none;
+  border-radius: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+}
+
+.terminal-header {
+  background: #1f2937;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.red { background: #ff5f56; }
+.yellow { background: #ffbd2e; }
+.green { background: #27c93f; }
+
+.title {
+  margin-left: 20px;
+  color: #9ca3af;
+  font-size: 0.9em;
+}
+
+.terminal-body {
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
+}
+
+h1 {
+  color: #38bdf8;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+/* Wall Messages */
+#wall {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.message {
+  padding: 15px 20px;
+  border-radius: 6px;
+  max-width: 280px;
+  word-wrap: break-word;
+  font-size: 1.1em;
+  transition: transform 0.2s ease;
+}
+
+.message:hover {
+  transform: scale(1.05);
+}
+
+/* Chalk */
+.chalk {
+  color: #fef3a0;
+  text-shadow:
+    0 0 8px #f5c518,
+    0 0 16px #f5c51855;
+}
+
+/* Neon Paint */
+.paint {
+  font-weight: bold;
+  background: linear-gradient(45deg, #ff00cc, #00ffff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
