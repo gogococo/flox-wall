@@ -186,7 +186,7 @@ h1 {
   word-wrap: break-word;
   line-height: 1.45;
   transition: filter 0.2s ease;
-  animation: sway 3s ease-in-out infinite alternate;
+  animation: sway ease-in-out infinite alternate;
 }
 
 .message:hover {
@@ -194,8 +194,8 @@ h1 {
 }
 
 @keyframes sway {
-  from { transform: rotate(calc(var(--rot) - 1.5deg)); }
-  to   { transform: rotate(calc(var(--rot) + 1.5deg)); }
+  from { transform: rotate(calc(var(--rot) - 2deg)); }
+  to   { transform: rotate(calc(var(--rot) + 2deg)); }
 }
 
 /* Chalk */

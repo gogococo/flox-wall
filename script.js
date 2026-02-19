@@ -35,7 +35,7 @@ function getStyle(entry) {
       rotation:     Math.floor(Math.random() * 26 - 13),
       fontSize:     (1.05 + Math.random() * 0.55).toFixed(2) + 'em',
       marginTop:    Math.floor(Math.random() * 35) + 'px',
-      swayDur:      (2.5 + Math.random() * 2).toFixed(1) + 's',
+      swayDur:      (5 + Math.random() * 3).toFixed(1) + 's',
       swayDelay:    (Math.random() * 2).toFixed(1) + 's',
       chalkColor:   chalk.color,
       chalkGlow:    chalk.glow,
@@ -46,38 +46,39 @@ function getStyle(entry) {
   return messageStyles.get(key);
 }
 
+function renderEntry(entry, wall) {
+  const s   = getStyle(entry);
+  const div = document.createElement("div");
+  div.className = "message " + (s.isChalk ? "chalk" : "paint");
+
+  div.style.fontFamily        = s.font;
+  div.style.fontSize          = s.fontSize;
+  div.style.marginTop         = s.marginTop;
+  div.style.animationDuration = s.swayDur;
+  div.style.animationDelay    = s.swayDelay;
+  div.style.setProperty('--rot',             s.rotation + 'deg');
+  div.style.setProperty('--chalk-color',     s.chalkColor);
+  div.style.setProperty('--chalk-glow',      s.chalkGlow);
+  div.style.setProperty('--chalk-glow-soft', s.chalkSoft);
+  div.style.setProperty('--paint-gradient',  s.paintGradient);
+
+  div.innerHTML = `<strong>${entry.handle}</strong><br/>${entry.message}`;
+  wall.appendChild(div);
+}
+
 async function loadMessages() {
   const response = await fetch("messages.json?t=" + Date.now());
   const data = await response.json();
 
+  if (data.length <= lastCount) return;
+
   const wall = document.getElementById("wall");
-  wall.innerHTML = "";
+  const newEntries = data.slice(lastCount);
+  newEntries.forEach(entry => renderEntry(entry, wall));
 
-  data.forEach(entry => {
-    const s   = getStyle(entry);
-    const div = document.createElement("div");
-    div.className = "message " + (s.isChalk ? "chalk" : "paint");
-
-    div.style.fontFamily        = s.font;
-    div.style.fontSize          = s.fontSize;
-    div.style.marginTop         = s.marginTop;
-    div.style.animationDuration = s.swayDur;
-    div.style.animationDelay    = s.swayDelay;
-    div.style.setProperty('--rot',             s.rotation + 'deg');
-    div.style.setProperty('--chalk-color',     s.chalkColor);
-    div.style.setProperty('--chalk-glow',      s.chalkGlow);
-    div.style.setProperty('--chalk-glow-soft', s.chalkSoft);
-    div.style.setProperty('--paint-gradient',  s.paintGradient);
-
-    div.innerHTML = `<strong>${entry.handle}</strong><br/>${entry.message}`;
-    wall.appendChild(div);
-  });
-
-  if (data.length > lastCount) {
-    const newCount = data.length - lastCount;
-    for (let i = 0; i < Math.min(newCount, 3); i++) {
-      setTimeout(() => triggerFireworks(), i * 350);
-    }
+  const newCount = data.length - lastCount;
+  for (let i = 0; i < Math.min(newCount, 3); i++) {
+    setTimeout(() => triggerFireworks(), i * 350);
   }
 
   lastCount = data.length;
@@ -98,6 +99,15 @@ function triggerFireworks() {
     p.className = 'particle';
     p.style.setProperty('--angle', (360 / 18 * i) + 'deg');
     p.style.setProperty('--distance', (70 + Math.random() * 60) + 'px');
+    p.style.background = FIREWORK_COLORS[Math.floor(Math.random() * FIREWORK_COLORS.length)];
+    burst.appendChild(p);
+  }
+
+  for (let i = 0; i < 12; i++) {
+    const p = document.createElement('span');
+    p.className = 'particle';
+    p.style.setProperty('--angle', (360 / 12 * i + 15) + 'deg');
+    p.style.setProperty('--distance', (30 + Math.random() * 25) + 'px');
     p.style.background = FIREWORK_COLORS[Math.floor(Math.random() * FIREWORK_COLORS.length)];
     burst.appendChild(p);
   }
