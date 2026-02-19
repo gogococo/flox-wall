@@ -13,15 +13,26 @@ A live conference message wall — attendees sign the wall and their messages ap
 
 [Flox](https://flox.dev) must be installed.
 
-## Setup
+## Quick start
 
 ```bash
 git clone git@github.com:gogococo/flox-wall.git
 cd flox-wall
 flox activate
+flox services start
 ```
 
-`flox activate` drops you into an environment with Node.js and Git available.
+`flox activate` drops you into a reproducible environment with Node.js, Git, and `gum` — no global installs needed. Run `flox activate` first to ensure all packages are installed, then `flox services start` to boot the local web server.
+
+Then open **http://localhost:8080** to see the wall.
+
+## Or activate from FloxHub (no clone needed)
+
+```bash
+flox activate -r gogococo/flox-wall
+```
+
+Pulls the exact same environment from FloxHub and activates it directly.
 
 ## Sign the wall
 
@@ -29,19 +40,15 @@ flox activate
 ./sign
 ```
 
-This runs an interactive CLI that prompts for a handle and message, appends it to `messages.json`, then commits and pushes automatically. The GitHub Action redeploys the page within ~30 seconds.
+Launches a styled interactive CLI (powered by `gum`) that prompts for a handle and message, then commits and pushes to `messages.json` automatically. The GitHub Action redeploys the page and the wall updates live within ~30 seconds.
 
-## Run locally
+## Environment contents
 
-Serve the project with any static file server, for example:
-
-```bash
-npx serve .
-# or
-python3 -m http.server
-```
-
-Then open `http://localhost:3000` (or whichever port is used).
+| Package | Purpose |
+|---------|---------|
+| `nodejs` | Runs `server.js` and `scripts/sign.js` |
+| `git` | Commits and pushes new messages |
+| `gum` | Styled terminal UI for `./sign` and the activation banner |
 
 ## Deployment
 

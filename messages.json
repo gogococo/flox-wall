@@ -1,4 +1,15 @@
 [
-  { "handle": "@flox", "message": "Welcome to the Flox Wall 🚀" },
-  {"handle": "@devopsjacquie", "message": "✨ Hello friends ✨ "}
+  {
+    "handle": "@flox",
+    "message": "Welcome to the Flox Wall 🚀"
+  },
+  {
+    "handle": "@devopsjacquie",
+    "message": "✨ Hello friends ✨ "
+  },
+  {
+    "handle": "@meagain",
+    "message": "Just another test ✨",
+    "timestamp": 1771466184990
+  }
 ]
